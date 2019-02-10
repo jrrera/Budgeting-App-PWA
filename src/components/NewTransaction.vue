@@ -4,38 +4,54 @@
       <header>
         <h3>New Transaction</h3>
       </header>
-      <input type="text" />
-    </section>
+      <form id="new-transaction-form" @submit.prevent="addTransaction">
+        <div>
+          <label class="transaction-label">
+            Amount
+            <input type="text" placeholder="10.15" />
+          </label>
+        </div>
+        <div>
+          <label class="transaction-label">
+            Payee
+            <input type="text" placeholder="Firebrand" />
+          </label>
+        </div>
+        <div>
+          <label class="transaction-label">
+            Category
+            <input type="text" placeholder="Dining Out" />
+          </label>
+        </div>
+        <div>
+          <label class="transaction-label">
+            Comment
+            <input type="text" placeholder="I was hungry!" />
+          </label>
+        </div>
 
-    <section>
-      <header>
-        <h4>Past Transactions</h4>
-      </header>
-
-      <ul>
-        <li v-for="t in transactions" :key="t.id">
-          {{ t.payee }}: {{ t.amount }} ({{ t.category }})
-        </li>
-      </ul>
+        <button type="submit">Submit</button>
+      </form>
     </section>
   </div>
 </template>
 
 <script>
-const mockTransaction = {
-  id: 1,
-  payee: "Firebrand",
-  amount: 10.15,
-  category: "Dining Out",
-  date: Date.now(),
-  comment: "Was hungry!"
-};
 const NewTransaction = {
   data: function() {
-    return {
-      transactions: [mockTransaction]
-    };
+    return {};
+  },
+  methods: {
+    addTransaction: event => console.log("Submit", event)
   }
 };
 export default NewTransaction;
 </script>
+
+<style scoped>
+#new-transaction-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+</style>
