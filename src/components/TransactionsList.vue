@@ -6,28 +6,18 @@
 
     <ul>
       <li v-for="t in transactions" :key="t.id">
-        {{ t.payee }}: {{ t.amount }} ({{ t.category }})
+        {{ t.payee }}: ${{ t.amount }} ({{ t.category }})
       </li>
     </ul>
   </section>
 </template>
 
 <script>
-const mockTransaction = {
-  id: 1,
-  payee: "Firebrand",
-  amount: 10.15,
-  category: "Dining Out",
-  date: Date.now(),
-  comment: "Was hungry!"
-};
+import { mapState } from 'vuex';
 
 const TransactionsList = {
-  data: function() {
-    return {
-      transactions: [mockTransaction]
-    };
-  }
+  computed: mapState(['transactions'])
 };
+
 export default TransactionsList;
 </script>

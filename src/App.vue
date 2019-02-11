@@ -11,7 +11,7 @@
 
 <style>
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;

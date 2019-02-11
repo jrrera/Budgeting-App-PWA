@@ -2,30 +2,30 @@
   <div>
     <section>
       <header>
-        <h3>New Transaction</h3>
+        <h3>Create a new transaction</h3>
       </header>
       <form id="new-transaction-form" @submit.prevent="addTransaction">
         <div>
           <label class="transaction-label">
-            Amount
+            <span>Amount</span>
             <input type="text" placeholder="10.15" />
           </label>
         </div>
         <div>
           <label class="transaction-label">
-            Payee
+            <span>Payee</span>
             <input type="text" placeholder="Firebrand" />
           </label>
         </div>
         <div>
           <label class="transaction-label">
-            Category
+            <span>Category</span>
             <input type="text" placeholder="Dining Out" />
           </label>
         </div>
         <div>
           <label class="transaction-label">
-            Comment
+            <span>Comment</span>
             <input type="text" placeholder="I was hungry!" />
           </label>
         </div>
@@ -42,7 +42,7 @@ const NewTransaction = {
     return {};
   },
   methods: {
-    addTransaction: event => console.log("Submit", event)
+    addTransaction: event => console.log('Submit', event)
   }
 };
 export default NewTransaction;
@@ -53,5 +53,23 @@ export default NewTransaction;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  min-width: 25vw;
+}
+
+.transaction-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+#new-transaction-form button {
+  margin-top: 20px;
+  height: 50px;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.transaction-label input {
+  font-size: 1rem;
 }
 </style>
