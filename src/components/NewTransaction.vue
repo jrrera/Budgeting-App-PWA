@@ -8,19 +8,37 @@
         <div>
           <label class="transaction-label">
             <span>Amount</span>
-            <input type="text" placeholder="10.15" />
+            <input
+              type="text"
+              placeholder="10.15"
+              v-model="amountInput"
+              required
+            />
           </label>
         </div>
         <div>
           <label class="transaction-label">
             <span>Payee</span>
-            <input type="text" placeholder="Firebrand" />
+            <input
+              type="text"
+              placeholder="Firebrand"
+              v-model="payeeInput"
+              required
+            />
           </label>
         </div>
         <div>
           <label class="transaction-label">
             <span>Category</span>
-            <input type="text" placeholder="Dining Out" />
+            <select v-model="categoryInput" required>
+              <option disabled value>Please select one</option>
+              <option
+                v-for="category in transactionCategories"
+                :value="category.id"
+                :key="category.id"
+                >{{ category.label }}</option
+              >
+            </select>
           </label>
         </div>
         <div>
@@ -39,10 +57,31 @@
 <script>
 const NewTransaction = {
   data: function() {
-    return {};
+    return {
+      categoryInput: 'diningout',
+      amountInput: 10.12,
+      payeeInput: 'Firebrand'
+    };
+  },
+  computed: {
+    transactionCategories() {
+      return this.$store.state.transactionCategories;
+    }
   },
   methods: {
-    addTransaction: event => console.log('Submit', event)
+    addTransaction(event) {
+      // TODO: Add validation.
+      console.log('Submit', event, this.categoryInput);
+      this.$store.commit('addTransaction', {
+        // TODO: Add better ID generation
+        id: Math.random()
+          .toString(32)
+          .slice(1),
+        category: this.categoryInput,
+        amount: this.amountInput,
+        payee: this.payeeInput
+      });
+    }
   }
 };
 export default NewTransaction;
@@ -53,7 +92,6 @@ export default NewTransaction;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  min-width: 25vw;
 }
 
 .transaction-label {
@@ -69,7 +107,12 @@ export default NewTransaction;
   font-size: 1rem;
 }
 
-.transaction-label input {
+.transaction-label select {
+  width: 175px;
+}
+
+.transaction-label input,
+.transaction-label select {
   font-size: 1rem;
 }
 </style>

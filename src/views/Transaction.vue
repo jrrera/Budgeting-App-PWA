@@ -1,6 +1,7 @@
 <template>
   <main>
     <h1>Transactions</h1>
+    <p>Manage existing transactions and log new purchases/income here.</p>
     <NewTransaction />
     <hr />
     <TransactionsList />
@@ -8,8 +9,7 @@
 </template>
 
 <script>
-import NewTransaction from '@/components/NewTransaction.vue';
-import TransactionsList from '@/components/TransactionsList.vue';
+import { NewTransaction, TransactionsList } from '@/components';
 export default {
   name: 'Transactions',
   components: {
