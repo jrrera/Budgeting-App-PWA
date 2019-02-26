@@ -4,27 +4,27 @@
       <header>
         <h3>Create a new transaction</h3>
       </header>
+      <div
+        id="transaction-success-msg"
+        v-if="transactionSuccess"
+      >Transaction submitted successfully!</div>
       <form id="new-transaction-form" @submit.prevent="addTransaction">
         <div>
           <label class="transaction-label">
             <span>Amount</span>
             <input
+              id="transaction-amount"
               type="text"
               placeholder="10.15"
               v-model="amountInput"
               required
-            />
+            >
           </label>
         </div>
         <div>
           <label class="transaction-label">
             <span>Payee</span>
-            <input
-              type="text"
-              placeholder="Firebrand"
-              v-model="payeeInput"
-              required
-            />
+            <input type="text" placeholder="Firebrand" v-model="payeeInput" required>
           </label>
         </div>
         <div>
@@ -36,15 +36,14 @@
                 v-for="category in transactionCategories"
                 :value="category.id"
                 :key="category.id"
-                >{{ category.label }}</option
-              >
+              >{{ category.label }}</option>
             </select>
           </label>
         </div>
         <div>
           <label class="transaction-label">
             <span>Comment</span>
-            <input type="text" placeholder="I was hungry!" />
+            <input type="text" placeholder="I was hungry!">
           </label>
         </div>
 
@@ -60,7 +59,8 @@ const NewTransaction = {
     return {
       categoryInput: 'diningout',
       amountInput: 10.12,
-      payeeInput: 'Firebrand'
+      payeeInput: 'Firebrand',
+      transactionSuccess: false
     };
   },
   computed: {
@@ -70,8 +70,11 @@ const NewTransaction = {
   },
   methods: {
     addTransaction(event) {
-      // TODO: Add validation.
-      console.log('Submit', event, this.categoryInput);
+      // TODO: Add better validation here.
+      if (!this.categoryInput || !this.amountInput || !this.payeeInput) {
+        return false;
+      }
+
       this.$store.commit('addTransaction', {
         // TODO: Add better ID generation
         id: Math.random()
@@ -81,6 +84,7 @@ const NewTransaction = {
         amount: this.amountInput,
         payee: this.payeeInput
       });
+      this.transactionSuccess = true;
     }
   }
 };
